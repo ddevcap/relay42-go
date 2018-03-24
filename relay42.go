@@ -14,16 +14,17 @@ import (
 )
 
 type Relay42 struct {
-	client      *http.Client
-	username	string
-	password 	string
-	siteId		int
-	Debug       bool
-	QueryParams map[string]string
-	Headers     map[string]string
-	BaseURL     string
+	client      	*http.Client
+	username		string
+	password 		string
+	siteId			int
+	Debug       	bool
+	QueryParams 	map[string]string
+	Headers     	map[string]string
+	BaseURL     	string
 
-	Profile	*ProfileService
+	Content			*ContentService
+	Profile			*ProfileService
 }
 
 type service struct {
@@ -38,6 +39,7 @@ func NewClient(username, password string) *Relay42 {
 		BaseURL: "https://api.relay42.com:443/",
 	}
 
+	r.Content = &ContentService{r: r}
 	r.Profile = &ProfileService{r: r}
 
 	return r
