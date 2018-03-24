@@ -4,8 +4,8 @@ import "net/http"
 
 // ErrorResponse model
 type ErrorResponse struct {
-	ErrorCode int		`json:"errorCode"`
-	Message   string    `json:"message,omitempty"`
+	ErrorCode int    `json:"errorCode"`
+	Message   string `json:"message,omitempty"`
 }
 
 func (e ErrorResponse) Error() string {
@@ -50,4 +50,3 @@ func (e ForbiddenError) Error() string {
 func (e InternalServerError) Error() string {
 	return e.err.Message
 }
-

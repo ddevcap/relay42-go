@@ -1,13 +1,13 @@
 package relay42
 
 import (
-	"net/http"
-	"fmt"
-	"net/url"
-	"strings"
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 )
 
 type DataFeedService service

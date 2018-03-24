@@ -1,12 +1,12 @@
 package relay42
 
 import (
-	"fmt"
-	"net/url"
-	"net/http"
-	"encoding/json"
 	"bytes"
 	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"net/url"
 )
 
 type ProfileService service
@@ -28,7 +28,7 @@ func (service *ProfileService) StreamInteractions(iq string, ish InteractionStre
 		return err
 	}
 
-	err = service.r.doStream(req, func(b []byte){
+	err = service.r.doStream(req, func(b []byte) {
 		interaction := &Interaction{}
 		json.Unmarshal(b, interaction)
 		ish(interaction, cancel)
@@ -54,7 +54,7 @@ func (service *ProfileService) StreamPartnerInteractions(iq string, ish Interact
 		return err
 	}
 
-	err = service.r.doStream(req, func(b []byte){
+	err = service.r.doStream(req, func(b []byte) {
 		interaction := &Interaction{}
 		json.Unmarshal(b, interaction)
 		ish(interaction, cancel)
@@ -63,7 +63,7 @@ func (service *ProfileService) StreamPartnerInteractions(iq string, ish Interact
 	return err
 }
 
-func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile bool, interactions ...Interaction) (string, error)  {
+func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile bool, interactions ...Interaction) (string, error) {
 	method := http.MethodPut
 
 	if ensureProfile {
@@ -75,7 +75,7 @@ func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile boo
 	query.Set("partnerId", pid)
 
 	body := map[string][]Interaction{
-		"interactions":interactions,
+		"interactions": interactions,
 	}
 
 	b := new(bytes.Buffer)
@@ -129,8 +129,8 @@ func (service *ProfileService) GetMappings(pt, pid string) ([]*Mapping, error) {
 
 	for pt, pid := range mappingMap {
 		mappingSlice = append(mappingSlice, &Mapping{
-			PartnerId:pid,
-			PartnerType:pt,
+			PartnerId:   pid,
+			PartnerType: pt,
 		})
 	}
 
@@ -312,4 +312,3 @@ func (service *ProfileService) GetSegment(pt, pid, segmentName string) (*Segment
 
 	return segment, err
 }
-

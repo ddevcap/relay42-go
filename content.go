@@ -1,8 +1,8 @@
 package relay42
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 type ContentService service

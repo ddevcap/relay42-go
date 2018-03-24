@@ -1,34 +1,34 @@
 package relay42
 
 import (
-	"io"
-	"fmt"
-	"log"
-	"net/url"
-	"net/http"
-	"encoding/json"
-	"github.com/moul/http2curl"
-	"net/http/httputil"
 	"bufio"
 	"bytes"
+	"encoding/json"
+	"fmt"
+	"github.com/moul/http2curl"
+	"io"
+	"log"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
 )
 
 type Relay42 struct {
-	client      	*http.Client
-	username		string
-	password 		string
-	siteId			int
-	Debug       	bool
-	QueryParams 	map[string]string
-	Headers     	map[string]string
-	BaseURL     	string
+	client      *http.Client
+	username    string
+	password    string
+	siteId      int
+	Debug       bool
+	QueryParams map[string]string
+	Headers     map[string]string
+	BaseURL     string
 
-	Content			*ContentService
+	Content         *ContentService
 	CustomerJourney *CustomerJourneyService
-	DataFeed		*DataFeedService
-	Profile			*ProfileService
-	Recommendation	*RecommendationService
-	Segment			*SegmentService
+	DataFeed        *DataFeedService
+	Profile         *ProfileService
+	Recommendation  *RecommendationService
+	Segment         *SegmentService
 }
 
 type service struct {
@@ -37,18 +37,18 @@ type service struct {
 
 func NewClient(username, password string) *Relay42 {
 	r := &Relay42{
-		client:http.DefaultClient,
+		client:   http.DefaultClient,
 		username: username,
 		password: password,
-		BaseURL: "https://api.relay42.com:443/",
+		BaseURL:  "https://api.relay42.com:443/",
 	}
 
-	r.Content 			= &ContentService{r: r}
-	r.CustomerJourney 	= &CustomerJourneyService{r: r}
-	r.DataFeed			= &DataFeedService{r: r}
-	r.Profile 			= &ProfileService{r: r}
-	r.Recommendation	= &RecommendationService{r: r}
-	r.Segment			= &SegmentService{r: r}
+	r.Content = &ContentService{r: r}
+	r.CustomerJourney = &CustomerJourneyService{r: r}
+	r.DataFeed = &DataFeedService{r: r}
+	r.Profile = &ProfileService{r: r}
+	r.Recommendation = &RecommendationService{r: r}
+	r.Segment = &SegmentService{r: r}
 
 	return r
 }
@@ -84,7 +84,6 @@ func (r *Relay42) newRequest(method, path string, query url.Values, body io.Read
 
 	return req, nil
 }
-
 
 func (r *Relay42) do(req *http.Request, v interface{}) error {
 	if r.Debug == true {

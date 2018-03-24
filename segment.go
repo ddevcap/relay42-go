@@ -1,26 +1,26 @@
 package relay42
 
 import (
-	"net/http"
-	"fmt"
-	"net/url"
-	"encoding/json"
 	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"net/url"
 )
 
 type SegmentService service
 
 type Segment struct {
-	SiteNumber 		int				`json:"siteNumber"`
-	Number 			int 			`json:"segmentNumber"`
-	SegmentName 	string 			`json:"segmentName"`
-	Parameters 		interface{} 	`json:"parameters"`
+	SiteNumber  int         `json:"siteNumber"`
+	Number      int         `json:"segmentNumber"`
+	SegmentName string      `json:"segmentName"`
+	Parameters  interface{} `json:"parameters"`
 }
 
 type SegmentStreamItem struct {
-	Added		[]interface{}		`json:"added"`
-	Removed		[]interface{}		`json:"removed"`
-	Modified	[]interface{}		`json:"modified"`
+	Added    []interface{} `json:"added"`
+	Removed  []interface{} `json:"removed"`
+	Modified []interface{} `json:"modified"`
 }
 
 type SegmentStreamHandlerFunc func(segmentStreamItem *SegmentStreamItem, cancel context.CancelFunc)
@@ -42,7 +42,7 @@ func (service *SegmentService) Stream(partnerType string, segmentStreamHandle Se
 		return err
 	}
 
-	err = service.r.doStream(req, func(b []byte){
+	err = service.r.doStream(req, func(b []byte) {
 		streamItem := &SegmentStreamItem{}
 		json.Unmarshal(b, streamItem)
 		segmentStreamHandle(streamItem, cancel)
@@ -68,7 +68,7 @@ func (service *SegmentService) StreamSegment(partnerType, segmentNumber string, 
 		return err
 	}
 
-	err = service.r.doStream(req, func(b []byte){
+	err = service.r.doStream(req, func(b []byte) {
 		streamItem := &SegmentStreamItem{}
 		json.Unmarshal(b, streamItem)
 		segmentStreamHandle(streamItem, cancel)
