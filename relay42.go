@@ -24,10 +24,11 @@ type Relay42 struct {
 	BaseURL     	string
 
 	Content			*ContentService
+	CustomerJourney *CustomerJourneyService
 	DataFeed		*DataFeedService
 	Profile			*ProfileService
 	Recommendation	*RecommendationService
-	CustomerJourney *CustomerJourneyService
+	Segment			*SegmentService
 }
 
 type service struct {
@@ -43,10 +44,11 @@ func NewClient(username, password string) *Relay42 {
 	}
 
 	r.Content 			= &ContentService{r: r}
+	r.CustomerJourney 	= &CustomerJourneyService{r: r}
 	r.DataFeed			= &DataFeedService{r: r}
 	r.Profile 			= &ProfileService{r: r}
 	r.Recommendation	= &RecommendationService{r: r}
-	r.CustomerJourney 	= &CustomerJourneyService{r: r}
+	r.Segment			= &SegmentService{r: r}
 
 	return r
 }
