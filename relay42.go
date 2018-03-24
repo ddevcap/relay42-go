@@ -25,6 +25,7 @@ type Relay42 struct {
 
 	Content			*ContentService
 	Profile			*ProfileService
+	CustomerJourney *CustomerJourneyService
 }
 
 type service struct {
@@ -39,8 +40,9 @@ func NewClient(username, password string) *Relay42 {
 		BaseURL: "https://api.relay42.com:443/",
 	}
 
-	r.Content = &ContentService{r: r}
-	r.Profile = &ProfileService{r: r}
+	r.Content 			= &ContentService{r: r}
+	r.Profile 			= &ProfileService{r: r}
+	r.CustomerJourney 	= &CustomerJourneyService{r: r}
 
 	return r
 }
