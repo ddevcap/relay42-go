@@ -53,7 +53,7 @@ func (service *SegmentService) Stream(partnerType string, segmentStreamHandle Se
 
 func (service *SegmentService) StreamSegment(partnerType, segmentNumber string, segmentStreamHandle SegmentStreamHandlerFunc) error {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/segments/stream/%s_%s", service.r.siteId, service.r.siteId, segmentNumber)
+	path := fmt.Sprintf("/v1/site-%d/segments/stream/%d_%s", service.r.siteId, service.r.siteId, segmentNumber)
 	query := url.Values{}
 	query.Set("partnerType", partnerType)
 

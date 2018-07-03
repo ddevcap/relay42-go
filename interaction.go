@@ -1,11 +1,14 @@
 package relay42
 
-import "context"
+import (
+	"context"
+	"encoding/json"
+)
 
 const (
 	TypeBannerView      = "bannerView"
 	TypeTypeConversion  = "typeConversion"
-	TypeEngagements     = "engagements"
+	TypeEngagement     	= "engagement"
 	TypeExperimentMatch = "experimentMatch"
 	TypePageView        = "pageView"
 	TypeSessionStart    = "sessionStart"
@@ -17,15 +20,75 @@ const (
 type InteractionStreamHandlerFunc func(interaction *Interaction, cancel context.CancelFunc)
 
 type Interaction struct {
-	*General
-	*BannerView
-	*Conversion
-	*Engagements
-	*ExperimentMatch
-	*PageView
-	*SessionStart
-	*Sync
-	*ExternalFact
+	General
+	InteractionJSON json.RawMessage
+}
+
+func (i *Interaction) UnmarshalJSON(b []byte) error {
+	g := &General{}
+	err := json.Unmarshal(b, g)
+
+	i.InteractionType = g.InteractionType
+	i.EventId = g.EventId
+	i.SiteNumber = g.SiteNumber
+	i.Timestamp = g.Timestamp
+	i.TrackId = g.TrackId
+	i.InteractionJSON = b
+
+	return err
+}
+
+func (i *Interaction) ToBannerView() *BannerView {
+	e := &BannerView{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToConversion() *Conversion {
+	e := &Conversion{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToEngagement() *Engagement {
+	e := &Engagement{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToExperimentMatch() *ExperimentMatch {
+	e := &ExperimentMatch{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToPageView() *PageView {
+	e := &PageView{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToSessionStart() *SessionStart {
+	e := &SessionStart{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToUserPreferences() *UserPreferences {
+	e := &UserPreferences{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+
+func (i *Interaction) ToSync() *Sync {
+	e := &Sync{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
+}
+func (i *Interaction) ToExternalFact() *ExternalFact {
+	e := &ExternalFact{}
+	json.Unmarshal(i.InteractionJSON, e)
+	return e
 }
 
 type General struct {
@@ -37,62 +100,62 @@ type General struct {
 }
 
 type BannerView struct {
-	*General
+	General
 	Identifier    string `json:"identifier"`
 	SubIdentifier string `json:"subIdentifier"`
 	Referral      string `json:"referral"`
 }
 
 type Conversion struct {
-	*General
+	General
 	TransactionId string      `json:"transactionId"`
 	Value         float64     `json:"value"`
 	Products      interface{} `json:"products"`
 	Variables     interface{} `json:"variables"`
 }
 
-type Engagements struct {
-	*General
+type Engagement struct {
+	General
 	Type      string      `json:"type"`
 	Content   interface{} `json:"content"`
 	Variables interface{} `json:"variables"`
 }
 
 type ExperimentMatch struct {
-	*General
+	General
 	ExperimentGroupNumber int `json:"experimentGroupNumber"`
 	ExperimentNumber      int `json:"experimentNumber"`
 }
 
 type PageView struct {
-	*General
+	General
 	Url       string `json:"url"`
 	Source    string `json:"source"`
 	UserAgent string `json:"userAgent"`
 }
 
 type SessionStart struct {
-	*General
+	General
 	Url       string `json:"url"`
 	Source    string `json:"source"`
 	UserAgent string `json:"userAgent"`
 }
 
 type UserPreferences struct {
-	*General
+	General
 	OptOutRemarketing bool `json:"optOutRemarketing"`
 	OptOutAdapting    bool `json:"optOutAdapting"`
 }
 
 type Sync struct {
-	*General
+	General
 	PartnerNumber int    `json:"partnerNumber"`
 	PartnerCookie string `json:"partnerCookie"`
 	MergeType     string `json:"mergeType"`
 }
 
 type ExternalFact struct {
-	*General
+	General
 	Type          string      `json:"type"`
 	Variables     interface{} `json:"variables"`
 	TTL           int         `json:"ttl"`
