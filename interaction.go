@@ -8,7 +8,7 @@ import (
 const (
 	TypeBannerView      = "bannerView"
 	TypeTypeConversion  = "typeConversion"
-	TypeEngagement     	= "engagement"
+	TypeEngagement      = "engagement"
 	TypeExperimentMatch = "experimentMatch"
 	TypePageView        = "pageView"
 	TypeSessionStart    = "sessionStart"
