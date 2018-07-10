@@ -2,9 +2,9 @@ package relay42
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
+	"golang.org/x/net/context"
 	"net/http"
 	"net/url"
 )
