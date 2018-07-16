@@ -14,7 +14,7 @@ Import into your Go project or library.
 
 ```
 import (
-    github.com/ddevcap/relay42-go
+    "github.com/ddevcap/relay42-go"
 )
 ```
 
