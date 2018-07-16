@@ -25,7 +25,7 @@ client := relay42.NewClient(username, password)
 ```
 
 #### SiteID
-You need to set the rely42 site id. 
+You need to set the Rely42 site id. 
 
 ```
 siteID := 0
