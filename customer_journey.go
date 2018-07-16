@@ -8,10 +8,10 @@ import (
 // CustomerJourneyService holds the R42 service
 type CustomerJourneyService service
 
-// GetCurrentJourneyStep returns a profile journey step by journeyId and profileId
-func (service *ContentService) GetCurrentJourneyStep(journeyId, profileId string) (*JourneyStep, error) {
+// GetCurrentJourneyStep returns a profile journey step by journeyID and profileID
+func (service *ContentService) GetCurrentJourneyStep(journeyID, profileID string) (*JourneyStep, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s/%s", service.r.siteId, journeyId, profileId)
+	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s/%s", service.r.siteId, journeyID, profileID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -24,10 +24,10 @@ func (service *ContentService) GetCurrentJourneyStep(journeyId, profileId string
 	return journeyStep, err
 }
 
-// GetJourneySteps returns profile journey steps by profileId
-func (service *ContentService) GetJourneySteps(profileId string) ([]*JourneyStep, error) {
+// GetJourneySteps returns profile journey steps by profileID
+func (service *ContentService) GetJourneySteps(profileID string) ([]*JourneyStep, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s", service.r.siteId, profileId)
+	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s", service.r.siteId, profileID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -40,10 +40,10 @@ func (service *ContentService) GetJourneySteps(profileId string) ([]*JourneyStep
 	return journeySteps, err
 }
 
-// RemoveProfileFromJourney removes a profile from a journey step by journeyId and profileId
-func (service *CustomerJourneyService) RemoveProfileFromJourney(journeyId, profileId string) error {
+// RemoveProfileFromJourney removes a profile from a journey step by journeyID and profileID
+func (service *CustomerJourneyService) RemoveProfileFromJourney(journeyID, profileID string) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s/%s", service.r.siteId, journeyId, profileId)
+	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s/%s", service.r.siteId, journeyID, profileID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -53,10 +53,10 @@ func (service *CustomerJourneyService) RemoveProfileFromJourney(journeyId, profi
 	return service.r.do(req, nil)
 }
 
-// RemoveProfileFromJourneys removes a profile from all journeys by profileId
-func (service *CustomerJourneyService) RemoveProfileFromJourneys(profileId string) error {
+// RemoveProfileFromJourneys removes a profile from all journeys by profileID
+func (service *CustomerJourneyService) RemoveProfileFromJourneys(profileID string) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s", service.r.siteId, profileId)
+	path := fmt.Sprintf("/v1/site-%d/customer/journey/%s", service.r.siteId, profileID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {

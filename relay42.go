@@ -18,7 +18,7 @@ type Relay42 struct {
 	client      *http.Client
 	username    string
 	password    string
-	siteId      int
+	siteID      int
 	Debug       bool
 	QueryParams map[string]string
 	Headers     map[string]string
@@ -57,8 +57,8 @@ func NewClient(username, password string) *Relay42 {
 }
 
 // Site sets the site id
-func (r *Relay42) Site(siteId int) {
-	r.siteId = siteId
+func (r *Relay42) Site(siteID int) {
+	r.siteID = siteID
 }
 
 // newRequest creates a new request

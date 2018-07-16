@@ -256,8 +256,8 @@ func (service *ProfileService) AddFacts(pt, pid string, ensureProfile bool, fact
 	return pid, service.r.do(req, nil)
 }
 
-// GetProfileId returns the profileId by partnerType and partnerId
-func (service *ProfileService) GetProfileId(pt, pid string) (string, error) {
+// GetProfileID returns the profileId by partnerType and partnerId
+func (service *ProfileService) GetProfileID(pt, pid string) (string, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/profiles/%s/profileId", service.r.siteId, pt)
 	query := url.Values{}

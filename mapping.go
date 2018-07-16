@@ -9,6 +9,6 @@ const (
 
 // Mapping holds mapping data
 type Mapping struct {
-	PartnerId   []string `json:"partnerId"`
+	PartnerID   []string `json:"partnerId"`
 	PartnerType int      `json:"partnerType"`
 }

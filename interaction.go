@@ -33,10 +33,10 @@ func (i *Interaction) UnmarshalJSON(b []byte) error {
 	err := json.Unmarshal(b, g)
 
 	i.InteractionType = g.InteractionType
-	i.EventId = g.EventId
+	i.EventID = g.EventID
 	i.SiteNumber = g.SiteNumber
 	i.Timestamp = g.Timestamp
-	i.TrackId = g.TrackId
+	i.TrackID = g.TrackID
 	i.InteractionJSON = b
 
 	return err
@@ -109,12 +109,12 @@ func (i *Interaction) ToExternalFact() *ExternalFact {
 type General struct {
 	InteractionType string `json:"interactionType"`
 	Timestamp       int64  `json:"timestamp"`
-	TrackId         string `json:"trackId"`
+	TrackID         string `json:"trackId"`
 	SiteNumber      int    `json:"siteNumber"`
-	EventId         string `json:"eventId"`
+	EventID         string `json:"eventId"`
 }
 
-// General holds banner view data
+// BannerView holds banner view data
 type BannerView struct {
 	General
 	Identifier    string `json:"identifier"`
@@ -122,16 +122,16 @@ type BannerView struct {
 	Referral      string `json:"referral"`
 }
 
-// General holds conversion data
+// Conversion holds conversion data
 type Conversion struct {
 	General
-	TransactionId string      `json:"transactionId"`
+	TransactionID string      `json:"transactionId"`
 	Value         float64     `json:"value"`
 	Products      interface{} `json:"products"`
 	Variables     interface{} `json:"variables"`
 }
 
-// General holds engagement data
+// Engagement holds engagement data
 type Engagement struct {
 	General
 	Type      string      `json:"type"`
@@ -139,37 +139,37 @@ type Engagement struct {
 	Variables interface{} `json:"variables"`
 }
 
-// General holds experiment match data
+// ExperimentMatch holds experiment match data
 type ExperimentMatch struct {
 	General
 	ExperimentGroupNumber int `json:"experimentGroupNumber"`
 	ExperimentNumber      int `json:"experimentNumber"`
 }
 
-// General page view view data
+// PageView page view view data
 type PageView struct {
 	General
-	Url       string `json:"url"`
+	URL       string `json:"url"`
 	Source    string `json:"source"`
 	UserAgent string `json:"userAgent"`
 }
 
-// General session start data
+// SessionStart session start data
 type SessionStart struct {
 	General
-	Url       string `json:"url"`
+	URL       string `json:"url"`
 	Source    string `json:"source"`
 	UserAgent string `json:"userAgent"`
 }
 
-// General holds user preferences data
+// UserPreferences holds user preferences data
 type UserPreferences struct {
 	General
 	OptOutRemarketing bool `json:"optOutRemarketing"`
 	OptOutAdapting    bool `json:"optOutAdapting"`
 }
 
-// General holds sync data
+// Sync holds sync data
 type Sync struct {
 	General
 	PartnerNumber int    `json:"partnerNumber"`
@@ -177,7 +177,7 @@ type Sync struct {
 	MergeType     string `json:"mergeType"`
 }
 
-// General holds external fact data
+// ExternalFact holds external fact data
 type ExternalFact struct {
 	General
 	Type          string      `json:"type"`

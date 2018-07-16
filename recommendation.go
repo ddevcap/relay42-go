@@ -35,10 +35,10 @@ func (service *RecommendationService) GetSimilarItems(profileNumber, prefix, att
 	return similarItems, err
 }
 
-// GetItemSimilarItems returns item similar items by profileNumber, prefix, attribute and itemId
-func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemId string) ([]*SimilarItem, error) {
+// GetItemSimilarItems returns item similar items by profileNumber, prefix, attribute and itemID
+func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemID string) ([]*SimilarItem, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/%s", service.r.siteId, profileNumber, itemId)
+	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/%s", service.r.siteId, profileNumber, itemID)
 	query := url.Values{}
 	query.Set("prefix", prefix)
 	query.Set("attribute", attribute)
