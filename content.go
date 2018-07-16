@@ -5,8 +5,10 @@ import (
 	"net/http"
 )
 
+// ContentService holds the R42 service
 type ContentService service
 
+// GetCampaigns returns content campaigns
 func (service *ContentService) GetCampaigns() ([]*Campaign, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/content/external", service.r.siteId)
@@ -22,6 +24,7 @@ func (service *ContentService) GetCampaigns() ([]*Campaign, error) {
 	return campaigns, err
 }
 
+// GetCampaign returns a content campaign by campaignId
 func (service *ContentService) GetCampaign(campaignId string) (*Campaign, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/content/external/%s", service.r.siteId, campaignId)
@@ -37,6 +40,7 @@ func (service *ContentService) GetCampaign(campaignId string) (*Campaign, error)
 	return campaign, err
 }
 
+// GetCampaignPlacements returns campaign placements by campaignId
 func (service *ContentService) GetCampaignPlacements(campaignId string) ([]*Placement, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/content/external/%s/placements", service.r.siteId, campaignId)

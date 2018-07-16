@@ -2,6 +2,7 @@ package relay42
 
 import "encoding/json"
 
+// Fact hold the fact data
 type Fact struct {
 	CreationTime int         `json:"creation_time"`
 	Name         string      `json:"name"`
@@ -9,6 +10,7 @@ type Fact struct {
 	Properties   interface{} `json:"parameters"`
 }
 
+// MarshalJSON for custom json marshaling
 func (f Fact) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&struct {
 		Name       string      `json:"factName"`

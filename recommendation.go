@@ -9,8 +9,10 @@ import (
 	"strings"
 )
 
+// RecommendationService holds the R42 service
 type RecommendationService service
 
+// GetSimilarItems returns similar items by profileNumber, prefix, attribute and itemIds
 func (service *RecommendationService) GetSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemIds ...string) ([]*SimilarItem, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteId, profileNumber)
@@ -33,6 +35,7 @@ func (service *RecommendationService) GetSimilarItems(profileNumber, prefix, att
 	return similarItems, err
 }
 
+// GetItemSimilarItems returns item similar items by profileNumber, prefix, attribute and itemId
 func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemId string) ([]*SimilarItem, error) {
 	method := http.MethodGet
 	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/%s", service.r.siteId, profileNumber, itemId)
@@ -54,6 +57,7 @@ func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix,
 	return similarItems, err
 }
 
+// AddOrUpdateSimilarItems adds or updates similar items by profileNumber
 func (service *RecommendationService) AddOrUpdateSimilarItems(profileNumber string, itemSimilarities ...ItemSimilarity) error {
 	method := http.MethodPost
 	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteId, profileNumber)

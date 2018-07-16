@@ -13,6 +13,7 @@ import (
 	"net/url"
 )
 
+//Relay42 holds the R42 client data
 type Relay42 struct {
 	client      *http.Client
 	username    string
@@ -31,10 +32,12 @@ type Relay42 struct {
 	Segment         *SegmentService
 }
 
+// service holds the R42 client
 type service struct {
 	r *Relay42
 }
 
+// NewClient returns a new R42 client
 func NewClient(username, password string) *Relay42 {
 	r := &Relay42{
 		client:   http.DefaultClient,
@@ -53,10 +56,12 @@ func NewClient(username, password string) *Relay42 {
 	return r
 }
 
+// Site sets the site id
 func (r *Relay42) Site(siteId int) {
 	r.siteId = siteId
 }
 
+// newRequest creates a new request
 func (r *Relay42) newRequest(method, path string, query url.Values, body io.Reader) (*http.Request, error) {
 	u, err := url.Parse(r.BaseURL)
 
@@ -85,6 +90,7 @@ func (r *Relay42) newRequest(method, path string, query url.Values, body io.Read
 	return req, nil
 }
 
+// do executes an request
 func (r *Relay42) do(req *http.Request, v interface{}) error {
 	if r.Debug == true {
 		command, _ := http2curl.GetCurlCommand(req)
@@ -110,6 +116,7 @@ func (r *Relay42) do(req *http.Request, v interface{}) error {
 	return r.handleError(req, res)
 }
 
+// doStream opens a stream
 func (r *Relay42) doStream(req *http.Request, handlerFunc func([]byte)) error {
 	if r.Debug == true {
 		command, _ := http2curl.GetCurlCommand(req)
@@ -142,6 +149,7 @@ func (r *Relay42) doStream(req *http.Request, handlerFunc func([]byte)) error {
 	return r.handleError(req, res)
 }
 
+// handleError handles request errors
 func (r *Relay42) handleError(req *http.Request, res *http.Response) error {
 	if r.Debug == true {
 		dump, err := httputil.DumpResponse(res, true)
