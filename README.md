@@ -38,3 +38,14 @@ In debug mode, all outgoing http requests are printed nicely in the form of curl
 ```
 client.Debug = true
 ```
+
+# Documentation/References
+
+### GoLang
+[Effective Go](https://golang.org/doc/effective_go.html)
+
+## Contributing
+[WIP]
+
+## License
+MIT
