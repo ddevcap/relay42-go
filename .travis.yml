@@ -1,6 +1,5 @@
 language: go
-  go:
-    - "1.10"
+dist: trusty
 
-    script:
-      - make lint
+script:
+  - make lint
