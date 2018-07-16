@@ -4,7 +4,7 @@ Unofficial GoLang SDK for the [Relay42](https://relay42.com) API
 
 # Install
 
-`go get install github.com/ddevcap/relay42-go`
+`go get github.com/ddevcap/relay42-go`
 
 # Getting started
 
