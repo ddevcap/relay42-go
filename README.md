@@ -4,11 +4,11 @@
 
 Unofficial GoLang SDK for the [Relay42](https://relay42.com) API
 
-# Install
+## Install
 
 `go get github.com/ddevcap/relay42-go`
 
-# Getting started
+## Getting started
 
 Import into your Go project or library.
 
@@ -26,7 +26,7 @@ password := "your-password"
 client := relay42.NewClient(username, password)
 ```
 
-#### SiteID
+##### SiteID
 You need to set the Rely42 site id. 
 
 ```
@@ -34,20 +34,20 @@ siteID := 0
 client.Site(siteID)
 ```
 
-#### Debug mode
+##### Debug mode
 In debug mode, all outgoing http requests are printed nicely in the form of curl command so that you can easly drop into your command line to debug specific request.
 
 ```
 client.Debug = true
 ```
 
-# Documentation/References
+## Documentation/References
 
 ### GoLang
 [Effective Go](https://golang.org/doc/effective_go.html)
 
-## Contributing
+### Contributing
 [WIP]
 
-## License
+### License
 MIT
