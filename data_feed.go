@@ -16,7 +16,7 @@ type DataFeedService service
 // GetEntries returns datafeed entries by feedPrefix and keys
 func (service *DataFeedService) GetEntries(feedPrefix string, keys ...string) (map[string]interface{}, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteId, feedPrefix)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteID, feedPrefix)
 	query := url.Values{}
 	query.Set("key", strings.Join(keys, ","))
 
@@ -34,7 +34,7 @@ func (service *DataFeedService) GetEntries(feedPrefix string, keys ...string) (m
 // AddEntries adds entries to a datafeed by feedPrefix
 func (service *ProfileService) AddEntries(feedPrefix string, entries []*DataFeedEntry) error {
 	method := http.MethodPost
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteId, feedPrefix)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteID, feedPrefix)
 
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(entries)
@@ -52,7 +52,7 @@ func (service *ProfileService) AddEntries(feedPrefix string, entries []*DataFeed
 // DeleteEntries deletes entries from datafeed by feedPrefix and keys
 func (service *DataFeedService) DeleteEntries(feedPrefix string, keys ...string) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteId, feedPrefix)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries", service.r.siteID, feedPrefix)
 	query := url.Values{}
 	query.Set("key", strings.Join(keys, ","))
 
@@ -67,7 +67,7 @@ func (service *DataFeedService) DeleteEntries(feedPrefix string, keys ...string)
 // GetEntry returns an entry by feedPrefix and key
 func (service *DataFeedService) GetEntry(feedPrefix, key string) (map[string]interface{}, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteId, feedPrefix, key)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteID, feedPrefix, key)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -83,7 +83,7 @@ func (service *DataFeedService) GetEntry(feedPrefix, key string) (map[string]int
 // AddEntry adds an entry by feedPrefix
 func (service *ProfileService) AddEntry(feedPrefix, entry *DataFeedEntry) error {
 	method := http.MethodPost
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteId, feedPrefix, entry.Key)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteID, feedPrefix, entry.Key)
 	query := url.Values{}
 	query.Set("ttl", strconv.Itoa(entry.TTL))
 
@@ -103,7 +103,7 @@ func (service *ProfileService) AddEntry(feedPrefix, entry *DataFeedEntry) error 
 // DeleteEntry deletes an entry by feedPrefix and key
 func (service *DataFeedService) DeleteEntry(feedPrefix, key string) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteId, feedPrefix, key)
+	path := fmt.Sprintf("v1/site-%s/datafeeds/%s/entries/%s", service.r.siteID, feedPrefix, key)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 

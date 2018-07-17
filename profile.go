@@ -15,7 +15,7 @@ type ProfileService service
 // StreamInteractions streams all interactions by query
 func (service *ProfileService) StreamInteractions(iq string, ish InteractionStreamHandlerFunc) error {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/interactions/stream", service.r.siteId)
+	path := fmt.Sprintf("/v1/site-%d/profiles/interactions/stream", service.r.siteID)
 	query := url.Values{}
 	query.Set("query", iq)
 
@@ -42,7 +42,7 @@ func (service *ProfileService) StreamInteractions(iq string, ish InteractionStre
 // StreamPartnerInteractions streams all partner interactions by query
 func (service *ProfileService) StreamPartnerInteractions(iq string, ish InteractionStreamHandlerFunc) error {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/partners/stream", service.r.siteId)
+	path := fmt.Sprintf("/v1/site-%d/profiles/partners/stream", service.r.siteID)
 	query := url.Values{}
 	query.Set("query", iq)
 
@@ -74,7 +74,7 @@ func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile boo
 		method = http.MethodPost
 	}
 
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -98,7 +98,7 @@ func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile boo
 // DeleteMappings deletes profile mappings by partnerType and partnerId
 func (service *ProfileService) DeleteMappings(pt, pid string, mappings ...*Mapping) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -116,7 +116,7 @@ func (service *ProfileService) DeleteMappings(pt, pid string, mappings ...*Mappi
 //GetMappings returns profile mappings by partnerType and partnerId
 func (service *ProfileService) GetMappings(pt, pid string) ([]*Mapping, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -135,7 +135,7 @@ func (service *ProfileService) GetMappings(pt, pid string) ([]*Mapping, error) {
 
 	for pt, pid := range mappingMap {
 		mappingSlice = append(mappingSlice, &Mapping{
-			PartnerId:   pid,
+			PartnerID:   pid,
 			PartnerType: pt,
 		})
 	}
@@ -146,7 +146,7 @@ func (service *ProfileService) GetMappings(pt, pid string) ([]*Mapping, error) {
 // GetPartnerMappings returns profile partner mappings by partnerType, partnerId and mappingType
 func (service *ProfileService) GetPartnerMappings(pt, pid, mpt string) ([]string, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings/%s", service.r.siteId, pt, mpt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings/%s", service.r.siteID, pt, mpt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -172,7 +172,7 @@ func (service *ProfileService) AddMappings(pt, pid, mergeType string, ensureProf
 		method = http.MethodPost
 	}
 
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/mappings", service.r.siteID, pt)
 
 	query := url.Values{}
 	query.Set("partnerId", pid)
@@ -195,7 +195,7 @@ func (service *ProfileService) AddMappings(pt, pid, mergeType string, ensureProf
 // DeleteFacts deletes profile facts by partnerType, partnerId and factNames
 func (service *ProfileService) DeleteFacts(pt, pid string, factsNames ...string) error {
 	method := http.MethodDelete
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -214,7 +214,7 @@ func (service *ProfileService) DeleteFacts(pt, pid string, factsNames ...string)
 // GetFacts returns profile facts by partnerType and partnerId
 func (service *ProfileService) GetFacts(pt, pid string) ([]*Fact, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -237,7 +237,7 @@ func (service *ProfileService) AddFacts(pt, pid string, ensureProfile bool, fact
 		method = http.MethodPost
 	}
 
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteID, pt)
 
 	query := url.Values{}
 	query.Set("partnerId", pid)
@@ -259,7 +259,7 @@ func (service *ProfileService) AddFacts(pt, pid string, ensureProfile bool, fact
 // GetProfileID returns the profileId by partnerType and partnerId
 func (service *ProfileService) GetProfileID(pt, pid string) (string, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/profileId", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/profileId", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -277,7 +277,7 @@ func (service *ProfileService) GetProfileID(pt, pid string) (string, error) {
 // GetSegments returns the profile segments by partnerType and partnerId
 func (service *ProfileService) GetSegments(pt, pid string) ([]*Segment, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/segments", service.r.siteId, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/segments", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -295,7 +295,7 @@ func (service *ProfileService) GetSegments(pt, pid string) ([]*Segment, error) {
 // GetSegment returns a profile segment by partnerType and partnerId
 func (service *ProfileService) GetSegment(pt, pid, segmentName string) (*Segment, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/segments/%s", service.r.siteId, pt, segmentName)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/segments/%s", service.r.siteID, pt, segmentName)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 

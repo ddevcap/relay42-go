@@ -11,7 +11,7 @@ type ContentService service
 // GetCampaigns returns content campaigns
 func (service *ContentService) GetCampaigns() ([]*Campaign, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/content/external", service.r.siteId)
+	path := fmt.Sprintf("/v1/site-%d/content/external", service.r.siteID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -27,7 +27,7 @@ func (service *ContentService) GetCampaigns() ([]*Campaign, error) {
 // GetCampaign returns a content campaign by campaignID
 func (service *ContentService) GetCampaign(campaignID string) (*Campaign, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/content/external/%s", service.r.siteId, campaignID)
+	path := fmt.Sprintf("/v1/site-%d/content/external/%s", service.r.siteID, campaignID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {
@@ -43,7 +43,7 @@ func (service *ContentService) GetCampaign(campaignID string) (*Campaign, error)
 // GetCampaignPlacements returns campaign placements by campaignID
 func (service *ContentService) GetCampaignPlacements(campaignID string) ([]*Placement, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/content/external/%s/placements", service.r.siteId, campaignID)
+	path := fmt.Sprintf("/v1/site-%d/content/external/%s/placements", service.r.siteID, campaignID)
 
 	req, err := service.r.newRequest(method, path, nil, nil)
 	if err != nil {

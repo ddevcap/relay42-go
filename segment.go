@@ -32,7 +32,7 @@ type SegmentStreamHandlerFunc func(segmentStreamItem *SegmentStreamItem, cancel 
 // Stream creates a stream by partnerType
 func (service *SegmentService) Stream(partnerType string, segmentStreamHandle SegmentStreamHandlerFunc) error {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/segments/stream", service.r.siteId)
+	path := fmt.Sprintf("/v1/site-%d/segments/stream", service.r.siteID)
 	query := url.Values{}
 	query.Set("partnerType", partnerType)
 
@@ -59,7 +59,7 @@ func (service *SegmentService) Stream(partnerType string, segmentStreamHandle Se
 // StreamSegment creates a segment stream by partnerType and segmentNumber
 func (service *SegmentService) StreamSegment(partnerType, segmentNumber string, segmentStreamHandle SegmentStreamHandlerFunc) error {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/segments/stream/%d_%s", service.r.siteId, service.r.siteId, segmentNumber)
+	path := fmt.Sprintf("/v1/site-%d/segments/stream/%d_%s", service.r.siteID, service.r.siteID, segmentNumber)
 	query := url.Values{}
 	query.Set("partnerType", partnerType)
 

@@ -15,7 +15,7 @@ type RecommendationService service
 // GetSimilarItems returns similar items by profileNumber, prefix, attribute and itemIds
 func (service *RecommendationService) GetSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemIds ...string) ([]*SimilarItem, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteId, profileNumber)
+	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteID, profileNumber)
 	query := url.Values{}
 	query.Set("prefix", prefix)
 	query.Set("attribute", attribute)
@@ -38,7 +38,7 @@ func (service *RecommendationService) GetSimilarItems(profileNumber, prefix, att
 // GetItemSimilarItems returns item similar items by profileNumber, prefix, attribute and itemID
 func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix, attribute string, resultSize int, itemID string) ([]*SimilarItem, error) {
 	method := http.MethodGet
-	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/%s", service.r.siteId, profileNumber, itemID)
+	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/%s", service.r.siteID, profileNumber, itemID)
 	query := url.Values{}
 	query.Set("prefix", prefix)
 	query.Set("attribute", attribute)
@@ -60,7 +60,7 @@ func (service *RecommendationService) GetItemSimilarItems(profileNumber, prefix,
 // AddOrUpdateSimilarItems adds or updates similar items by profileNumber
 func (service *RecommendationService) AddOrUpdateSimilarItems(profileNumber string, itemSimilarities ...ItemSimilarity) error {
 	method := http.MethodPost
-	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteId, profileNumber)
+	path := fmt.Sprintf("/v1/site-%d/recommendations/%s/items", service.r.siteID, profileNumber)
 
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(itemSimilarities)
