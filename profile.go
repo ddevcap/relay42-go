@@ -74,7 +74,7 @@ func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile boo
 		method = http.MethodPost
 	}
 
-	path := fmt.Sprintf("/v1/site-%d/profiles/%s/facts", service.r.siteID, pt)
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/interactions", service.r.siteID, pt)
 	query := url.Values{}
 	query.Set("partnerId", pid)
 
@@ -91,6 +91,35 @@ func (service *ProfileService) AddInteractions(pt, pid string, ensureProfile boo
 	}
 
 	req.Header.Set("Content-Type", "application/json")
+
+	return pid, service.r.do(req, nil)
+}
+
+func (service *ProfileService) AddEngagements(pt, pid string, ensureProfile bool, engagements ...Engagement) (string, error) {
+	method := http.MethodPut
+
+	if ensureProfile {
+		method = http.MethodPost
+	}
+
+	path := fmt.Sprintf("/v1/site-%d/profiles/%s/interactions", service.r.siteID, pt)
+	query := url.Values{}
+	query.Set("partnerId", pid)
+
+	body := map[string][]Engagement{
+		"interactions": engagements,
+	}
+
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(body)
+
+	req, err := service.r.newRequest(method, path, query, b)
+	if err != nil {
+		return pid, err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	req.Header.Set("Accept", "application/json")
 
 	return pid, service.r.do(req, nil)
 }
@@ -125,7 +154,7 @@ func (service *ProfileService) GetMappings(pt, pid string) ([]*Mapping, error) {
 		return []*Mapping{}, err
 	}
 
-	var mappingMap map[int][]string
+	var mappingMap map[int]string
 	var mappingSlice []*Mapping
 
 	err = service.r.do(req, &mappingMap)
@@ -177,7 +206,7 @@ func (service *ProfileService) AddMappings(pt, pid, mergeType string, ensureProf
 	query := url.Values{}
 	query.Set("partnerId", pid)
 	query.Set("forceInsert", fmt.Sprintf("%t", ensureProfile))
-	query.Set("mergeType", fmt.Sprintf("%t", mergeType))
+	query.Set("mergeType", fmt.Sprintf("%s", mergeType))
 
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(mappings)

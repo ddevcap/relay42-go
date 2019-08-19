@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"time"
 )
 
 //Relay42 holds the R42 client data
@@ -113,7 +114,15 @@ func (r *Relay42) do(req *http.Request, v interface{}) error {
 		return nil
 	}
 
-	return r.handleError(req, res)
+	apiErr := r.handleError(req, res)
+
+	if apiErr != nil {
+		fmt.Println(apiErr)
+	}
+
+	time.Sleep(1 * time.Second)
+
+	return r.do(req, v)
 }
 
 // doStream opens a stream
@@ -175,21 +184,20 @@ func (r *Relay42) handleError(req *http.Request, res *http.Response) error {
 
 	switch apiError.err.ErrorCode {
 
+	case http.StatusTooManyRequests:
+		return TooManyRequests{apiError}
+
 	case http.StatusBadRequest:
 		return BadRequestError{apiError}
-		break
 
 	case http.StatusUnauthorized:
 		return UnauthorizedError{apiError}
-		break
 
 	case http.StatusForbidden:
 		return ForbiddenError{apiError}
-		break
 
 	case http.StatusInternalServerError:
 		return InternalServerError{apiError}
-		break
 
 	}
 	return e

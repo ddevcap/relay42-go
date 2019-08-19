@@ -40,6 +40,16 @@ type InternalServerError struct {
 	APIError
 }
 
+// TooManyRequests holds the API error
+type TooManyRequests struct {
+	APIError
+}
+
+// Error returns the error message
+func (e TooManyRequests) Error() string {
+	return e.err.Message
+}
+
 // Error returns the error message
 func (e BadRequestError) Error() string {
 	return e.err.Message

@@ -4,7 +4,7 @@ import "encoding/json"
 
 // Fact hold the fact data
 type Fact struct {
-	CreationTime int         `json:"creation_time"`
+	CreationTime int64       `json:"creation_time"`
 	Name         string      `json:"name"`
 	TTL          int         `json:"original_ttl"`
 	Properties   interface{} `json:"parameters"`
